@@ -17,6 +17,7 @@
         <module>gulimall-ware</module>
         <module>gulimall-common</module>
         <module>renren-fast</module>
+        <module>renren-generator</module>
     </modules>
 
 
