@@ -52,6 +52,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
+            <!-- 打包的时候就不需要带上servlet-api了 -->
             <scope>provided</scope>
         </dependency>
 

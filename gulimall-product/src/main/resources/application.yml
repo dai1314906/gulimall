@@ -2,7 +2,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://192.168.152.20:3306/gulimall_pms
+    url: jdbc:mysql://192.168.152.20:3306/gulimall_pms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
   cloud:
     nacos:
@@ -13,10 +13,10 @@ spring:
 
 
 mybatis-plus:
-  mapper-locations: classpath:/mapper/**/*.xml
+  mapper-locations: classpath:/mapper/**/*.xml # 只扫描自己模块下的mapper文件下的.xml文件
   global-config:
     db-config:
-      id-type: auto
+      id-type: auto # 表示自增主键
       logic-delete-value: 1
       logic-not-delete-value: 0
 server:
