@@ -17,8 +17,8 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto # 表示自增主键
-      logic-delete-value: 1
-      logic-not-delete-value: 0
+      logic-delete-value: 1 # 1 表示已经删除
+      logic-not-delete-value: 0 # 0 表示没有删除
 server:
   port: 10000
 logging:
