@@ -10,9 +10,12 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.ElementType.TYPE_USE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * 自定义校验注解，用于判断某个字段的值必须在指定的值中
+ */
 @Documented
 @Constraint(validatedBy = { ListValueConstraintValidator.class })
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE }) // 适配校验器
 @Retention(RUNTIME)
 public @interface ListValue {
     String message() default "{com.atguigu.common.valid.ListValue.message}";
