@@ -6,7 +6,7 @@ spring:
     alicloud:
       oss:
         endpoint: oss-cn-beijing.aliyuncs.com
-        bucket: gulimall-hello
+        bucket: gulimall-dl-study
       sms:
         host: https://smsmsgs.market.alicloudapi.com
         path: /sms/
