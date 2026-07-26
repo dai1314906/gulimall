@@ -47,7 +47,7 @@ public class AttrGroupEntity implements Serializable {
 	private Long catelogId;
 
 
-	@TableField(exist = false)
+	@TableField(exist = false) //表示这个字段数据库中不存在
 	private Long[] catelogPath;
 
 

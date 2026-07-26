@@ -77,7 +77,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public Long[] findCatelogPath(Long catelogId) {
         List<Long> paths = new ArrayList<>();
         List<Long> parentPath = findParentPath(catelogId, paths);
-
+        //因为是子节点，倒着向上查父节点，是逆序的，所以这里要reverse处理一下
         Collections.reverse(parentPath);
 
 
@@ -95,6 +95,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
     }
 
+    /**
+     * 递归调用
+     * @param catelogId
+     * @param paths
+     * @return
+     */
     //225,25,2
     private List<Long> findParentPath(Long catelogId,List<Long> paths){
         //1、收集当前节点id
