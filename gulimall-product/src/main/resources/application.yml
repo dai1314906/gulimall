@@ -10,6 +10,8 @@ spring:
         server-addr: 127.0.0.1:8848
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    cache: true
 
 
 mybatis-plus:
@@ -23,5 +25,5 @@ server:
   port: 10000
 logging:
   level:
-    com.atguigu.gulimall: debug
+    com.atguigu.gulimall: error
 
