@@ -105,6 +105,7 @@ public class MallSearchServiceImpl implements MallSearchService {
         //1.2、bool - filter - 按照所有指定的属性进行查询
         if (param.getAttrs() != null && param.getAttrs().size() > 0) {
             for (String attrStr : param.getAttrs()) {
+                //嵌套查询
                 //attrs=1_5寸:8寸&attrs=2_16G:8G
                 BoolQueryBuilder nestedboolQuery = QueryBuilders.boolQuery();
                 //attr = 1_5寸:8寸

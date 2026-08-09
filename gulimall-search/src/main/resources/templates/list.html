@@ -795,6 +795,7 @@
                         <div class="sl_value_logo">
                             <ul>
                                 <li th:each="brand:${result.brands}">
+                                    <!-- &quot;brandId&quot 使用转义字符 -->
                                     <a href="/static/search/#"
                                        th:href="${'javascript:searchProducts(&quot;brandId&quot;,'+brand.brandId+')'}">
                                         <img th:src="${brand.brandImg}" alt="">
@@ -1213,9 +1214,11 @@
                                     <img th:src="${product.skuImg}"></a></li>
                             </ul>
                             <p class="tab_R">
+                                <!--替换原来得5199元-->
                                 <span th:text="'¥'+${product.skuPrice}">¥5199.00</span>
                             </p>
                             <p class="tab_JE">
+                                <!-- th:text 会转义，th:utext 不会转义 -->
                                 <a href="/static/search/#" th:utext="${product.skuTitle}">
                                     Apple iPhone 7 Plus (A1661) 32G 黑色 移动联通电信4G手机
                                 </a>
