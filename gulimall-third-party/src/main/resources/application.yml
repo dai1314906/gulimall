@@ -8,11 +8,11 @@ spring:
         endpoint: oss-cn-beijing.aliyuncs.com
         bucket: gulimall-dl-study
       sms:
-        host: https://smsmsgs.market.alicloudapi.com
-        path: /sms/
-        skin: 1
-        sign: 1
-        appcode: 93b7e19861a24c519a7548b17dc16d75
+        host: https://gyytz.market.alicloudapi.com
+        path: /sms/smsSend
+        smsSignId: 2e65b1bb3d054466b82f0c9d125465e2
+        templateId: 908e94ccf08b4476ba6c876d13f084ad
+        appcode: 3468a8eb5f024e3c8484ff343501f48b
 
   application:
     name: gulimall-third-party
