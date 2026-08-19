@@ -30,7 +30,7 @@ public class SmsComponent {
         headers.put("Authorization", "APPCODE " + appcode);
         Map<String, String> querys = new HashMap<String, String>();
         querys.put("mobile", mobile);
-        querys.put("param", "**code**:"+code+",**minute**:5");
+        querys.put("param", "**code**:"+code+",**minute**:1");
         querys.put("smsSignId", smsSignId);
         querys.put("templateId", templateId);
         //JDK 1.8示例代码请在这里下载：  http://code.fegine.com/Tools.zip

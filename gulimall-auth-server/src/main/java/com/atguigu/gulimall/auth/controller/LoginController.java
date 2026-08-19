@@ -26,6 +26,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -69,7 +70,8 @@ public class LoginController {
 
 
         //2、验证码的再次校验。redis。存key-phone，value-code   sms:code:17512080612 -> 45678
-        String code = UUID.randomUUID().toString().substring(0, 5);
+//        String code = UUID.randomUUID().toString().substring(0, 6);
+        String code = String.format("%06d", ThreadLocalRandom.current().nextInt(1000000));
         String substring = code+"_"+System.currentTimeMillis();
         //redis缓存验证码，防止同一个phone在60秒内再次发送验证码
 

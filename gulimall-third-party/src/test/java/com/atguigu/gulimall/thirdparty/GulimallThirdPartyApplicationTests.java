@@ -37,7 +37,7 @@ class GulimallThirdPartyApplicationTests {
 
     @Test
     public void testSendCode(){
-        smsComponent.sendSmsCode("15310563225","894561");
+        smsComponent.sendSmsCode("15310563225","456123");
     }
 
 
