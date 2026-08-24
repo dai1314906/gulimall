@@ -37,21 +37,21 @@ public class OAuth2Controller {
      * @return
      * @throws Exception
      */
-    @GetMapping("/oauth2.0/weibo/success")
-    public String weibo(@RequestParam("code") String code, HttpSession session, HttpServletResponse servletResponse, HttpServletRequest request) throws Exception {
+    @GetMapping("/oauth2.0/gitee/success")
+    public String gitee(@RequestParam("code") String code, HttpSession session, HttpServletResponse servletResponse, HttpServletRequest request) throws Exception {
         Map<String,String> header = new HashMap<>();
         Map<String,String> query = new HashMap<>();
 
 
 
         Map<String,String> map = new HashMap<>();
-        map.put("client_id","2636917288");
-        map.put("client_secret","6a263e9284c6c1a74a62eadacc11b6e2");
+        map.put("client_id","b9dc4c91328565bd31a2a4ca9c2df6442fa49e88a9011e6326c48e67d06a5820");
+        map.put("client_secret","81ed86b13d78633795139369faadf02329713e50563767be7b526bd8754ce474");
         map.put("grant_type","authorization_code");
-        map.put("redirect_uri","http://auth.gulimall.com/oauth2.0/weibo/success");
+        map.put("redirect_uri","http://auth.gulimall.com/oauth2.0/gitee/success");
         map.put("code",code);
         //1、根据code换取accessToken；
-        HttpResponse response = HttpUtils.doPost("https://api.weibo.com", "/oauth2/access_token", "post", header, query, map);
+        HttpResponse response = HttpUtils.doPost("https://gitee.com", "/oauth/token", "post", header, query, map);
 
         //2、处理
         if(response.getStatusLine().getStatusCode()==200){

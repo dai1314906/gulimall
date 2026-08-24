@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.common.utils.HttpUtils;
 import com.atguigu.gulimall.member.dao.MemberLevelDao;
+import com.atguigu.gulimall.member.entity.GiteeUserInfo;
 import com.atguigu.gulimall.member.entity.MemberLevelEntity;
 import com.atguigu.gulimall.member.exception.PhoneExsitException;
 import com.atguigu.gulimall.member.exception.UsernameExistException;
@@ -130,8 +131,18 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
      */
     @Override
     public MemberEntity login(SocialUser socialUser) throws Exception {
+        //判断是否第一次登录
+
+        String access_token = socialUser.getAccess_token();
+        // 调用gitee的获取用户信息接口
+        // https://gitee.com/api/v5/user?access_token=4988d716f14d502c60a1dd7bf9c601fc
+        GiteeUserInfo giteeUserInfo = getGiteeUserInfo(access_token);
+        if (giteeUserInfo==null){
+            throw new RuntimeException("未查到gitee用户信息");
+        }
+
         //登录和注册合并逻辑
-        String uid = socialUser.getUid();
+        String uid = giteeUserInfo.getId();
         //1、判断当前社交用户是否已经登录过系统；
         MemberDao memberDao = this.baseMapper;
         MemberEntity memberEntity = memberDao.selectOne(new QueryWrapper<MemberEntity>().eq("social_uid", uid));
@@ -150,32 +161,45 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
         }else{
             //2、没有查到当前社交用户对应的记录我们就需要注册一个
             MemberEntity regist = new MemberEntity();
-            try{
-                //3、查询当前社交用户的社交账号信息（昵称，性别等）
-                Map<String,String> query = new HashMap<>();
-                query.put("access_token",socialUser.getAccess_token());
-                query.put("uid",socialUser.getUid());
-                HttpResponse response = HttpUtils.doGet("https://api.weibo.com", "/2/users/show.json", "get", new HashMap<String, String>(), query);
-                if(response.getStatusLine().getStatusCode() == 200){
-                    //查询成功
-                    String json = EntityUtils.toString(response.getEntity());
-                    JSONObject jsonObject = JSON.parseObject(json);
-                    //昵称
-                    String name = jsonObject.getString("name");
-                    String gender = jsonObject.getString("gender");
-                    //........
-                    regist.setNickname(name);
-                    regist.setGender("m".equals(gender)?1:0);
-                    //........
-                }
-            }catch (Exception e){}
-
-            regist.setSocialUid(socialUser.getUid());
+            regist.setSocialUid(giteeUserInfo.getId());
+            regist.setNickname(giteeUserInfo.getName());
             regist.setAccessToken(socialUser.getAccess_token());
             regist.setExpiresIn(socialUser.getExpires_in());
             memberDao.insert(regist);
 
             return regist;
         }
+    }
+
+    /**
+     * 调用gitee的获取用户信息接口
+     * https://gitee.com/api/v5/user?access_token=4988d716f14d502c60a1dd7bf9c601fc
+     * @param accessToken
+     * @return
+     */
+    private GiteeUserInfo getGiteeUserInfo(String accessToken) {
+        GiteeUserInfo giteeUserInfo = new GiteeUserInfo();
+        try {
+            Map<String,String> query = new HashMap<>();
+            query.put("access_token",accessToken);
+            HttpResponse response = HttpUtils.doGet("https://gitee.com", "/api/v5/user", "get", new HashMap<String, String>(), query);
+            if(response.getStatusLine().getStatusCode() == 200){
+                //查询成功
+                String json = EntityUtils.toString(response.getEntity());
+                JSONObject jsonObject = JSON.parseObject(json);
+                //昵称
+                String name = jsonObject.getString("name");
+                String uid = jsonObject.getString("id");
+                //........
+                giteeUserInfo.setName(name);
+                giteeUserInfo.setId(uid);
+                //........
+                return giteeUserInfo;
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return giteeUserInfo;
     }
 }
