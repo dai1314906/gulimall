@@ -92,7 +92,7 @@
       <ul>
         <li>
           <!---->
-          <div th:text="${session.loginUser}"></div>
+          <!--<div th:text="${session.loginUser}"></div>-->
           <a  th:if="${session.loginUser!=null}">欢迎：[[${session.loginUser==null?'':session.loginUser.nickname}]]</a>
           <a href="http://auth.gulimall.com/login.html" th:if="${session.loginUser==null}">欢迎，请登录</a>
         </li>
