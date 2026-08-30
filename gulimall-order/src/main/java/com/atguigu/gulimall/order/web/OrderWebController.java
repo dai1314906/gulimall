@@ -48,7 +48,7 @@ public class OrderWebController {
      */
     @PostMapping("/submitOrder")
     public String submitOrder(OrderSubmitVo vo, Model model, RedirectAttributes redirectAttributes){
-
+        System.out.println("订单数据："+vo);
 
         try {
             SubmitOrderResponseVo responseVo = orderService.submitOrder(vo);

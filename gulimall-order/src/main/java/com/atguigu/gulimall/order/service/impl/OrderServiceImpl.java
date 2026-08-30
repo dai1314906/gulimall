@@ -64,6 +64,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderDao, OrderEntity> impleme
     @Autowired
     PaymentInfoService paymentInfoService;
 
+    //如何通过这种方式控制事务，会引起循环依赖
 //    @Autowired
 //    OrderService orderService;
 
