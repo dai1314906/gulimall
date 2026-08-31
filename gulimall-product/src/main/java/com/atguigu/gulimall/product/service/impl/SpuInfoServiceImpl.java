@@ -83,8 +83,11 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
 
     /**
      * //TODO 高级部分完善
+     * @GlobalTransactional
+     *
      * @param vo
      */
+    //Seata AT 分布式事务
     @Transactional
     @Override
     public void saveSpuInfo(SpuSaveVo vo) {
