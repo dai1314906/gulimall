@@ -18,7 +18,7 @@ public class MyMQConfig {
     //@Bean Binding，Queue，Exchange
 
     /**
-     * 容器中的 Binding，Queue，Exchange 都会自动创建（RabbitMQ没有的情况）
+     * @Bean的作用就是：容器中的 Binding，Queue，Exchange 都会自动创建（RabbitMQ没有的情况）
      * RabbitMQ 只要有。@Bean声明属性发生变化也不会覆盖
      * @return
      */
